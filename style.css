@@ -1,0 +1,18 @@
+body {
+    text-align: center;
+}
+
+.top-of-page {
+    display: flex;
+    display: row;
+    justify-content: space-between;
+
+}
+
+nav {
+    text-align: left;
+}
+
+#time-left {
+    text-align: right;
+}
