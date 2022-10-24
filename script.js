@@ -151,7 +151,7 @@ initialsBtn.addEventListener("click", function(event) {
     };
     var userScore = {
         initials: initialsInputEl.value,
-        score: timeLeft.textContent
+        score: finalScoreEl.textContent
     };
     scoresArray.push(userScore);
     var scoresArrayString = JSON.stringify(scoresArray);
@@ -179,9 +179,3 @@ function showScores() {
     }
     
 }
-
-
-
-
-// 
-// document.getElementById("finalscore").innerHTML = localstorage.getItem("ML")
