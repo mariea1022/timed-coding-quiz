@@ -1,4 +1,5 @@
 // HOOKS to the DOM
+var highscoresLink = document.querySelector("#highscores");
 var timeEl = document.querySelector("#time-left");
 var startContainerEl = document.querySelector("#start-game-container");
 var startButtonEl = document.querySelector("#start-quiz-btn");
@@ -18,10 +19,11 @@ var initialsBtn = document.querySelector("#submit-initials-btn");
 var highscoresContainerEl = document.querySelector("#highscores-container");
 var timesUpEl = document.querySelector("#times-up");
 var listOfHighScores = document.querySelector("#highscores-list");
+var goBackBtn = document.querySelector("#go-back");
+var clearScoresBtn = document.querySelector("#clear-highscores");
 
 // state variable(s)
 var timeLeft = 90; // 1:30 seconds in milliseconds
-var highscores = document.querySelector("#highscores-link");
 
 // constant variables
 var questionIndex = 0;
@@ -61,11 +63,11 @@ startContainerEl.addEventListener("click", function(event) {
     var element = event.target;
     if (element.matches("button") === true) {
       // THEN a timer starts 
-      startTime() 
+      startTime()
       // AND presented with a question
       nextQuestion()
       }
-    })
+})
 
 function startTime() {
     var timerInterval = setInterval(function() {
@@ -94,41 +96,37 @@ quizContainerEl.addEventListener("click", function(event) {
     if (element.matches("button") === true) {
         checkAnswer(event);
       }
-    })
-    
-function checkAnswer(event) {
+})
 
+function checkAnswer(event) {
     var lineBreakEl = document.querySelector("#line-break");
     lineBreakEl.style.display = "block";
     checkAnswerEl.style.display = "block";
-
+    
     if (questions[questionIndex].answer === event.target.innerHTML) {
-        checkAnswerEl.textContent = "Correct!";
+    checkAnswerEl.textContent = "Correct!";
     } 
     else {
         // WHEN I answer a question incorrectly
         // THEN time is subtracted from the clock
-            timeLeft -= 15;
+        timeLeft -= 15;
         timeLeft.textContent = timeLeft;
         checkAnswerEl.textContent = "Wrong!";
-    }
-    // WHEN I answer a question
-    // THEN I am presented with another question
-    questionIndex++;
-    // repeat with the rest of questions 
-    if (questionIndex < questions.length) {
-        nextQuestion();
-    } else {
-        // if no more question, run game over function
-        gameOver();
-    }
+        }
+        // WHEN I answer a question
+        // THEN I am presented with another question
+        questionIndex++;
+        // repeat with the rest of questions 
+        if (questionIndex < questions.length) {
+            nextQuestion();
+        } 
+        else {
+            // WHEN all questions are answered or the timer reaches 0 (see start time function above)
+            // THEN the game is over
+            gameOver();
+        }  
+    }      
     
-}
-
-// WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
-// WHEN the game is over
-// THEN I can save my initials and my score
 function gameOver() {
     quizContainerEl.style.display = "none";
     scoreContainerEl.style.display = "block";
@@ -136,7 +134,9 @@ function gameOver() {
     timeEl.remove();
     timesUpEl.style.display = "block";
 }
-    
+
+// WHEN the game is over
+// THEN I can save my initials and my score
 initialsBtn.addEventListener("click", function(event) {
     event.preventDefault();
     var element = event.target;
@@ -177,5 +177,19 @@ function showScores() {
         eachNewHighScore.innerHTML = storedScores[i].initials + ": " + storedScores[i].score;
         listOfHighScores.appendChild(eachNewHighScore);
     }
-    
 }
+
+goBackBtn.addEventListener("click", function() {
+    window.location.reload()
+})
+
+clearScoresBtn.addEventListener("click", function() {
+    window.localStorage.removeItem("highscores");
+    clearScoresBtn.style.display = "none";
+    listOfHighScores.innerHTML = "Highscores cleared!";
+})
+
+highscoresLink.addEventListener("click", function() {
+    showScores();
+    startContainerEl.style.display = "none";
+});
