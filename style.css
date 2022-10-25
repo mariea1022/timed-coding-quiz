@@ -6,7 +6,7 @@ body {
     display: flex;
     display: row;
     justify-content: space-between;
-
+    margin-bottom: 75px;
 }
 
 nav {
@@ -15,4 +15,9 @@ nav {
 
 #time-left {
     text-align: right;
+}
+
+button {
+    background-color: rgb(249, 179, 179);
+    height: 28px;
 }

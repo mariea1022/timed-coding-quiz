@@ -43,18 +43,20 @@ const questions = [
     },
     {
         question: "What is JQuery?",
-        choices: ["1. _____", "2. _____", "3. _____", "4. _____"],
-        answer: "4. _____"
+        choices: ["1. It's a CSS framework", "2. It's a Third Party API that holds 1000+ open source font families", 
+        "3. It's an older version of JavaScript", "4. It's a fast, small, and feature-rich JavaScript library"],
+        answer: "4. It's a fast, small, and feature-rich JavaScript library"
     },
     {
-        question: "What is an event listener?",
-        choices: ["1. _____", "2. _____", "3. _____", "4. _____"],
-        answer: "3. _____"
+        question: "What are the 3 parameters inside the addEventListener() method?",
+        choices: ["1. variable, array, string", "2. number, boolean, event", "3. event, function, boolean", "4. boolean, anonymous, {}"],
+        answer: "3. event, function, boolean"
     },
     {
-        question: "What is event bubbling?",
-        choices: ["1. _____", "2. _____", "3. _____", "4. _____"],
-        answer: "2. _____"
+        question: "Which one is NOT a syntax to hook to the DOM",
+        choices: ["1. document.querySelectorAll()", "2. document.selectAll{}", "3. document.querySelector()", 
+        "4. document.getElementbyId()"],
+        answer: "2. document.selectAll{}"
     }]
 
 
@@ -115,16 +117,19 @@ function checkAnswer(event) {
         }
         // WHEN I answer a question
         // THEN I am presented with another question
-        questionIndex++;
+    questionIndex++;
         // repeat with the rest of questions 
-        if (questionIndex < questions.length) {
-            nextQuestion();
-        } 
-        else {
-            // WHEN all questions are answered or the timer reaches 0 (see start time function above)
-            // THEN the game is over
-            gameOver();
-        }  
+    if (questionIndex < questions.length) {
+        nextQuestion();
+    } 
+    else {
+        // WHEN all questions are answered or the timer reaches 0 (see start time function above)
+        // THEN the game is over
+        // used setTimeout function to view whether answer to last question = wrong or correct
+        setTimeout(function() {
+            gameOver()
+        }, 1500);
+    }  
     }      
     
 function gameOver() {
